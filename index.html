@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iHarmonium</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎹</text></svg>">
+</head>
+<body>
+    <div id="start-overlay">
+        <div id="start-prompt">Tap to Start iHarmonium</div>
+    </div>
+    <div id="app">
+        <header>
+            <h1>iHarmonium</h1>
+            <p class="subtitle">A virtual harmonium for your browser</p>
+        </header>
+
+        <div id="bellows-panel">
+            <div id="lid-visual">
+                <div id="laptop-base"></div>
+                <div id="laptop-lid"></div>
+            </div>
+            <div id="bellows-display">
+                <div id="bellows-bar">
+                    <div id="bellows-fill"></div>
+                </div>
+                <div id="bellows-info">
+                    <span id="angle-value">0</span><span id="bellows-unit">%</span>
+                    <span id="bellows-label">Air</span>
+                </div>
+                <div id="pump-hint">Detecting sensors...</div>
+                <div id="bellows-method-line">Input: <span id="bellows-method">detecting</span></div>
+            </div>
+        </div>
+
+        <div id="now-playing-container">
+            <span id="now-playing"></span>
+        </div>
+
+        <div id="keyboard-container">
+            <div id="harmonium-keyboard"></div>
+        </div>
+
+        <div id="controls">
+            <label>Octave:
+                <select id="octave-select">
+                    <option value="3">Low</option>
+                    <option value="4" selected>Middle</option>
+                    <option value="5">High</option>
+                </select>
+                <span class="shortcut-hint">Z/X</span>
+            </label>
+            <label>Drone:
+                <button id="drone-toggle" class="btn btn-small">Off</button>
+            </label>
+            <label>Scale:
+                <select id="scale-select">
+                    <option value="chromatic">Chromatic</option>
+                    <option value="major">Major (Bilawal)</option>
+                    <option value="bhairav">Bhairav</option>
+                    <option value="yaman">Yaman</option>
+                    <option value="kafi">Kafi</option>
+                </select>
+            </label>
+        </div>
+
+        <div id="instructions">
+            <h3>How to Play</h3>
+            <ul>
+                <li>Allow camera access &mdash; the webcam detects lid angle via brightness</li>
+                <li>Slowly close and open your lid during the 3-second calibration</li>
+                <li>Open lid = bright = full air &mdash; close lid = dark = no air</li>
+                <li>Or hold <kbd>Space</kbd> to pump manually if camera is denied</li>
+                <li>Play notes: <kbd>A</kbd>-<kbd>;</kbd> (white keys), <kbd>W</kbd>-<kbd>P</kbd> (black keys)</li>
+                <li>Shift octave: <kbd>Z</kbd> (down) / <kbd>X</kbd> (up)</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>iHarmonium &mdash; Hold space, play keys, make music</p>
+        </footer>
+    </div>
+
+    <script src="audio-engine.js"></script>
+    <script src="harmonium-keys.js"></script>
+    <script src="orientation.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+/* Start overlay for iOS audio unlock */
+#start-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(26, 10, 46, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#start-prompt {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #f0c27f, #fc5c7d, #f0c27f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 40%, #1a0a2e 100%);
+    color: #e0d5f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#app {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0 10px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, #f0c27f, #fc5c7d, #f0c27f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    color: #a89cc8;
+    font-size: 0.95rem;
+    margin-top: 4px;
+}
+
+/* Bellows Panel */
+#bellows-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px 30px;
+    margin: 15px 0;
+    background: rgba(255,255,255,0.04);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+#lid-visual {
+    position: relative;
+    width: 100px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+#laptop-base {
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    width: 90px;
+    height: 8px;
+    background: #6b5b8a;
+    border-radius: 2px 2px 4px 4px;
+}
+
+#laptop-lid {
+    position: absolute;
+    bottom: 8px;
+    left: 5px;
+    width: 90px;
+    height: 60px;
+    background: linear-gradient(180deg, #8b7baa, #6b5b8a);
+    border-radius: 4px 4px 0 0;
+    transform-origin: bottom center;
+    transition: none;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+#bellows-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 180px;
+}
+
+#bellows-bar {
+    width: 180px;
+    height: 20px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+}
+
+#bellows-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #fc5c7d, #f0c27f);
+    border-radius: 10px;
+    transition: none;
+}
+
+#bellows-info {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+
+#angle-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f0c27f;
+    line-height: 1;
+}
+
+#bellows-unit {
+    font-size: 1rem;
+    color: #f0c27f;
+    font-weight: 600;
+}
+
+#bellows-label {
+    font-size: 0.75rem;
+    color: #a89cc8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 8px;
+}
+
+#pump-hint {
+    font-size: 0.75rem;
+    color: #6b5b8a;
+    transition: color 0.2s;
+}
+
+#pump-hint.pumping {
+    color: #f0c27f;
+}
+
+#bellows-method-line {
+    font-size: 0.65rem;
+    color: #6b5b8a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#bellows-method {
+    color: #4ade80;
+    font-weight: 600;
+}
+
+code {
+    background: rgba(255,255,255,0.08);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+/* Now Playing */
+#now-playing-container {
+    text-align: center;
+    min-height: 32px;
+    padding: 6px 0;
+}
+
+#now-playing {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fc5c7d;
+    letter-spacing: 3px;
+}
+
+/* Keyboard */
+#keyboard-container {
+    margin: 10px 0 20px;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+#harmonium-keyboard {
+    position: relative;
+    display: flex;
+    height: 180px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.key {
+    position: relative;
+    cursor: pointer;
+    border-radius: 0 0 6px 6px;
+    transition: background 0.06s, box-shadow 0.06s, transform 0.06s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.key-white {
+    width: 52px;
+    height: 180px;
+    background: linear-gradient(180deg, #f5f0e8, #e8e0d0);
+    border: 1px solid #c0b8a8;
+    margin-right: 2px;
+    z-index: 1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3), inset 0 -3px 4px rgba(0,0,0,0.08);
+}
+
+.key-white:active, .key-white.active {
+    background: linear-gradient(180deg, #e0d8c8, #d0c8b8);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3), inset 0 2px 6px rgba(0,0,0,0.12);
+    transform: translateY(3px);
+}
+
+.key-black {
+    width: 34px;
+    height: 115px;
+    background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+    border: 1px solid #000;
+    margin-left: -18px;
+    margin-right: -18px;
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5), inset 0 -2px 3px rgba(60,60,60,0.3);
+}
+
+.key-black:active, .key-black.active {
+    background: linear-gradient(180deg, #3a3a3a, #2a2a2a);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    transform: translateY(3px);
+}
+
+.key .key-label {
+    font-size: 0.65rem;
+    color: #999;
+    pointer-events: none;
+}
+
+.key-black .key-label {
+    color: #777;
+}
+
+.key .note-name {
+    font-size: 0.7rem;
+    color: #777;
+    pointer-events: none;
+    margin-bottom: 2px;
+}
+
+.key-black .note-name {
+    color: #999;
+}
+
+.key.highlight {
+    background: linear-gradient(180deg, #ffe4b5, #ffd090) !important;
+}
+
+.key.highlight.active {
+    background: linear-gradient(180deg, #f0d0a0, #e0c080) !important;
+}
+
+.key-black.highlight {
+    background: linear-gradient(180deg, #8b6914, #705010) !important;
+}
+
+.key.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Glow effect on active white keys */
+.key-white.active {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3), inset 0 2px 6px rgba(0,0,0,0.12),
+                0 0 15px rgba(252, 92, 125, 0.3);
+}
+
+.key-black.active {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4),
+                0 0 12px rgba(252, 92, 125, 0.25);
+}
+
+/* Controls */
+#controls {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 15px 20px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    flex-wrap: wrap;
+}
+
+#controls label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.shortcut-hint {
+    font-size: 0.7rem;
+    color: #6b5b8a;
+    background: rgba(255,255,255,0.06);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+select {
+    background: #2d1b4e;
+    color: #e0d5f0;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.btn {
+    background: linear-gradient(135deg, #fc5c7d, #f0c27f);
+    color: #1a0a2e;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn:hover { opacity: 0.9; }
+
+.btn-small {
+    padding: 5px 14px;
+    font-size: 0.8rem;
+}
+
+.btn-small.active {
+    background: linear-gradient(135deg, #4ade80, #22d3ee);
+}
+
+input[type="range"] {
+    accent-color: #f0c27f;
+}
+
+/* Instructions */
+#instructions {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+#instructions h3 {
+    color: #f0c27f;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+#instructions ul {
+    list-style: none;
+    padding: 0;
+}
+
+#instructions li {
+    padding: 4px 0;
+    font-size: 0.85rem;
+    color: #a89cc8;
+}
+
+#instructions li::before {
+    content: "~ ";
+    color: #fc5c7d;
+}
+
+kbd {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.8rem;
+    font-family: monospace;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.75rem;
+    color: #6b5b8a;
+}
+
+@media (max-width: 700px) {
+    #bellows-panel {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .key-white {
+        width: 38px;
+        height: 140px;
+    }
+    .key-black {
+        width: 26px;
+        height: 90px;
+        margin-left: -14px;
+        margin-right: -14px;
+    }
+    #harmonium-keyboard {
+        height: 140px;
+    }
+    h1 { font-size: 1.8rem; }
+    #bellows-bar { width: 140px; }
+}

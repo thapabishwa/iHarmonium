@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(lsof -ti:8080)",
+      "Bash(xargs kill:*)",
+      "Bash(python3 -m http.server 8080)"
+    ]
+  }
+}
